@@ -1,0 +1,63 @@
+import RPi.GPIO as GPIO
+import time
+import picamera
+import cv2
+import numpy as np
+
+# GPIO Setup
+TRIG = 23
+ECHO = 24
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(TRIG, GPIO.OUT)
+GPIO.setup(ECHO, GPIO.IN)
+
+# Initialize Camera
+camera = picamera.PiCamera()
+camera.resolution = (640, 480)
+
+# Function to measure distance
+def get_distance():
+    GPIO.output(TRIG, True)
+    time.sleep(0.01)
+    GPIO.output(TRIG, False)
+
+    start_time = time.time()
+    stop_time = time.time()
+
+    while GPIO.input(ECHO) == 0:
+        start_time = time.time()
+
+    while GPIO.input(ECHO) == 1:
+        stop_time = time.time()
+
+    distance = (stop_time - start_time) * 17150
+    return distance
+
+# Function to process image
+def process_image():
+    camera.capture('/home/pi/image.jpg')
+    img = cv2.imread('/home/pi/image.jpg')
+    gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    # Placeholder for image processing logic
+    # Example: Object detection can be implemented here
+    return gray_img
+
+# Main control loop
+try:
+    while True:
+        distance = get_distance()
+        print(f"Distance: {distance:.2f} cm")
+
+        if distance < 30:
+            print("Obstacle detected! Reversing...")
+            # Code to reverse or change direction
+
+        # Process and display the image
+        processed_img = process_image()
+        # Update display with processed image (pseudo code)
+        display_on_screen(processed_img)
+
+        time.sleep(1)
+
+except KeyboardInterrupt:
+    GPIO.cleanup()
