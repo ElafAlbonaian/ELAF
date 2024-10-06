@@ -1,8 +1,8 @@
-# ELAF TEAM
+# RayBot 2030 TEAM
 
 ## Project Overview
 
-The ELAF TEAM robot is developed for the WRO24 competition, focusing on agility and intelligent navigation. This robot leverages ultrasonic sensors for obstacle detection, a Raspberry Pi camera for visual processing, and a compact display for user feedback. Its design aims to navigate complex terrains autonomously while providing real-time data to the operator.
+The RayBot 2030 TEAM robot is developed for the WRO24 competition, focusing on agility and intelligent navigation. This robot leverages ultrasonic sensors for obstacle detection, a Raspberry Pi camera for visual processing, and a compact display for user feedback. Its design aims to navigate complex terrains autonomously while providing real-time data to the operator.
 
 ## Components
 
